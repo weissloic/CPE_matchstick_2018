@@ -22,6 +22,12 @@ typedef struct array_s {
     int number_atoi;
     int number_arg;
     int lenght_array;
+    int number_line;
+    int number_match;
+    int nb_line;
+    int counter;
+    int nbcolumn;
+    char **map;
 } array_t;
 
 int my_put_nbr(int nb);

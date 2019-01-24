@@ -62,18 +62,23 @@ int my_str_isnum(char const *str)
 
 int main (int ac, char **av)
 {
-    //array_t *array = malloc(sizeof(array_t));
+    array_t *array = malloc(sizeof(array_t));
 
 
 
-    int nb_line = my_atoi(av[1]);
-    int nbcolumn = nb_line * 2;
+    array->nb_line = my_atoi(av[1]);
+    array->nbcolumn = array->nb_line * 2;
     int i = 1;
+    int e = 0;
+    array->counter = 0;
+    array->map = complete_map(array->nb_line, array->nbcolumn);
+    char *line = NULL;
+    size_t len = 0;
 
     if (ac != 3)
         return (84);
 
-    if (nb_line < 2 || nb_line > 99)
+    if (array->nb_line < 2 || array->nb_line > 99)
         return(84);
 
     while (i != ac) {
@@ -82,22 +87,48 @@ int main (int ac, char **av)
         i++;
     }
 
-    char **map = complete_map(nb_line, nbcolumn);
-    char *line = NULL;
-    size_t len = 0;
+    for (int i = 0; i != array->nb_line + 2; i++)
+        printf("%s\n", array->map[i]);
+    printf("Your turn:\n");
+    while (1) {
+        if (getline(&line, &len, stdin) == -1) {
+            printf("Error");
+            return (84);
+        } else {
+            array->number_line = my_atoi(line);
+            if (array->number_line > array->nb_line) {
+              getline(&line, &len, stdin);
+              array->number_line = my_atoi(line);
+            }
 
-    for (int i = 0; i != nb_line + 2; i++)
-        printf("%s\n", map[i]);
+            if (getline(&line, &len, stdin) == -1) {
+                printf("Error");
+              } else {
+                  array->number_match = my_atoi(line);
 
-    if (getline(&line, &len, stdin) == -1) {
-        printf("Error");
-        return (84);
-
-    } else {
-        int y = my_atoi(line);
-        //if (my_str_isnum(line) != 1)
-        //    return (84);
-        printf("%d\n", y);
+                }
+            printf("Line = %d\n", array->number_line);
+            printf("Matche = %d\n", array->number_match);
+            erase_stick(array);
+            print_map(array);
+        }
     }
     return (0);
+}
+
+void erase_stick(array_t *array)
+{
+            while (array->map[array->number_line][array->nbcolumn] != '|')
+              array->nbcolumn--;
+            while (array->number_match != 0) {
+              array->map[array->number_line][array->nbcolumn] = ' ';
+              array->nbcolumn--;
+              array->number_match--;
+            }
+            array->nbcolumn = array->nb_line * 2;
+}
+void print_map(array_t *array)
+{
+            for (int i = 0; i != array->nb_line + 2; i++)
+                printf("%s\n", array->map[i]);
 }
