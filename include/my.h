@@ -27,6 +27,11 @@ typedef struct array_s {
     int nb_line;
     int counter;
     int nbcolumn;
+    int nb_stick;
+    int nb_match_stock;
+    int stick_max;
+    char *line;
+    size_t len;
     char **map;
 } array_t;
 
