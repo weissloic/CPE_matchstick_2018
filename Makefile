@@ -9,6 +9,10 @@ NAME = matchstick
 
 SRC =	main.c \
 		create_map.c \
+		my_atoi.c \
+		lib.c \
+		ai.c \
+		player.c \
 		lib/my/adresspointer.c \
 		lib/my/base.c \
 		lib/my/printfunc.c \
