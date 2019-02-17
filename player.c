@@ -10,17 +10,18 @@
 void function_turn1(array_t *array)
 {
     if (getline(&array->line, &array->len, stdin) == -1) {
-        my_printf("Error");
+        my_printf("\nError: this line is out of range\n");
         return (84);
+        function_turn(array);
     }
-    else if (array->line == NULL) {
-        my_printf("zizi");
-        return (0);
+    else if (stdin == NULL) {
+        my_printf("\n");
+        return (84);
     }
     else if (my_str_isnum(array->line) != 1) {
         my_printf("Error: invalid input (positive number expected)\n");
         function_turn(array);
-        return;
+        return (84);
     }
 }
 
@@ -29,18 +30,18 @@ void function_turn2(array_t *array)
     if (array->number_match == 0) {
         my_printf("Error: you have to remove at least one match\n");
         function_turn(array);
-        return;
+        return (84);
     }
     else if (array->number_match > array->nb_stick) {
         my_printf("Error: not enough matches on this line\n");
         function_turn(array);
-        return;
+        return (84);
     }
     else if (array->number_match > array->stick_max) {
         (my_printf("Error: you cannot remove more than %d matches per turn\n",
         array->stick_max));
         function_turn(array);
-        return;
+        return (84);
     }
 }
 
@@ -49,19 +50,21 @@ void function_turn3(array_t *array)
     if (array->number_line > array->nb_line) {
         my_printf("Error: this line is out of range\n");
         function_turn(array);
-        return;
+        return (84);
     }
     else if (array->number_line == 0) {
         my_printf("Error: this line is out of range\n");
         function_turn(array);
-        return;
+        return (84);
     }
     check_stick(array);
     my_printf("Matches: ");
     if (getline(&array->line, &array->len, stdin) == -1) {
-        my_printf("Error");
+        my_printf("\nError: this line is out of range\n");
         return (84);
+        function_turn(array);
     }
+    return;
 }
 
 void function_turn(array_t *array)
@@ -80,8 +83,8 @@ void function_turn(array_t *array)
         return;
     }
     else if (array->line == NULL) {
-        my_printf("zizi");
-        return (0);
+        my_printf("\n");
+        return (84);
     }
     array->nb_match_stock = array->number_match;
     function_turn2(array);
@@ -90,17 +93,18 @@ void function_turn(array_t *array)
 void player_turn2(array_t *array)
 {
     if (getline(&array->line, &array->len, stdin) == -1) {
-        my_printf("Error");
+        my_printf("\nError: this line is out of range\n");
         return (84);
+        function_turn(array);
     }
     if (array->line == NULL) {
-        my_printf("zizi");
-        return (0);
+        my_printf("\n");
+        return (84);
     }
     array->number_line = my_atoi(array->line);
     if (my_str_isnum(array->line) != 1) {
         my_printf("Error: invalid input (positive number expected)\n");
         function_turn(array);
-        return;
+        return (84);
     }
 }

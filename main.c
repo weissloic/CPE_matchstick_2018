@@ -63,6 +63,8 @@ void player_or_ai(array_t *array)
     }
     else if (array->player == 1) {
         player_turn(array);
+        if (array->line == 0)
+            return;
         (my_printf("Player removed %d match(es) from line %d\n",
         array->number_match, array->number_line));
         array->player = 0;

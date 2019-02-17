@@ -9,7 +9,7 @@
 
 unsigned my_atoui(char *str)
 {
-    unsigned  res;
+    unsigned res;
 
     res = 0;
     while ((*str >= '0') && (*str <= '9')) {

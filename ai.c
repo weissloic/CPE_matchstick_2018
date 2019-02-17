@@ -32,8 +32,10 @@ void player_turn4(array_t *array)
     check_stick(array);
     my_printf("Matches: ");
     if (getline(&array->line, &array->len, stdin) == -1) {
-        my_printf("Error");
+        printf("\nError: this line is out of range\n");
         return (84);
+        function_turn(array);
+        
     }
     else if (array->line == NULL) {
         my_printf("zizi");
@@ -41,8 +43,8 @@ void player_turn4(array_t *array)
     }
     if (my_str_isnum(array->line) != 1) {
         my_printf("Error: invalid input (positive number expected)\n");
-        function_turn(array);
         return;
+        function_turn(array);
     }
 }
 
@@ -67,6 +69,7 @@ void player_turn(array_t *array)
     array->number_match = my_atoi(array->line);
     array->nb_match_stock = array->number_match;
     player_turn3(array);
+    return;
 }
 
 int function_line_sticknull(array_t *array)
